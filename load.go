@@ -33,7 +33,7 @@ func LoadFromString(str string, destination interface{}) error {
 	return LoadFromReader(strings.NewReader(str), destination)
 }
 
-func LoadFromHTTP(url string, destination interface{}) error {
+func LoadFromURL(url string, destination interface{}) error {
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
