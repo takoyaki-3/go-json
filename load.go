@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"strings"
+	"net/http"
 )
 
 func LoadFromReader(file io.Reader, destination interface{}) error {
@@ -30,4 +31,13 @@ func LoadFromPath(path string, destination interface{}) error {
 
 func LoadFromString(str string, destination interface{}) error {
 	return LoadFromReader(strings.NewReader(str), destination)
+}
+
+func LoadFromHTTP(url string, destination interface{}) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	return LoadFromReader(resp.Body, destination)
 }
